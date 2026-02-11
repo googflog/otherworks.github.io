@@ -1,156 +1,156 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Knock: 生成AIの扉</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#000000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <style>
-        :root {
-            --bg-color: #000000;
-            --text-color: #ffffff;
-            --accent-color: #333333;
-        }
-        
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+      @font-face {
+        font-family: "MOBO";
+        src: url("./MOBO-ExtraLight.otf") format("opentype");
+        font-weight: 200;
+        font-style: normal;
+      }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: "Helvetica Neue", Arial, sans-serif;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+      @font-face {
+        font-family: "MOBO-Regular";
+        src: url("./MOBO-Regular.otf") format("opentype");
+        font-weight: 400;
+        font-style: normal;
+      }
 
-        .container {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            max-width: 100%;
-        }
+      :root {
+        --bg-color: #000000;
+        --text-color: #ffffff;
+        --accent-color: #333333;
+      }
 
-        .video-column {
-            flex: 0 0 70%;
-            background: #000;
-            position: relative;
-            overflow: hidden;
-        }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-        .video-column iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-family: "MOBO", "Helvetica Neue", Arial, sans-serif;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
+      .container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+      }
+
+      .video-column {
+        flex: 0 0 70%;
+        background: #000;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .video-column iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      .text-column {
+        flex: 0 0 30%;
+        padding: 2rem;
+        overflow-y: auto;
+        border-left: 1px solid var(--accent-color);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-size: 0.9rem;
+        line-height: 1.8;
+        letter-spacing: 0.05em;
+      }
+
+      h1 {
+        font-family: "MOBO-Regular", "MOBO", sans-serif;
+        font-size: 1.4rem;
+        margin-bottom: 2rem;
+        font-weight: 400;
+        border-bottom: 1px solid var(--accent-color);
+        padding-bottom: 0.5rem;
+        display: inline-block;
+      }
+
+      p {
+        margin-bottom: 1.5rem;
+        text-align: justify;
+      }
+
+      /* iPad横向き時の調整 */
+      @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
         .text-column {
-            flex: 0 0 30%;
-            padding: 2rem;
-            overflow-y: auto;
-            border-left: 1px solid var(--accent-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            font-size: 0.9rem;
-            line-height: 1.8;
-            letter-spacing: 0.05em;
+          font-size: 1rem;
+          padding: 3rem;
         }
+      }
 
-        h1 {
-            font-size: 1.4rem;
-            margin-bottom: 2rem;
-            font-weight: 700;
-            border-bottom: 2px solid #fff;
-            padding-bottom: 0.5rem;
-            display: inline-block;
-        }
-
-        p {
-            margin-bottom: 1.5rem;
-            text-align: justify;
-        }
-
-        /* iPad横向き時の調整 */
-        @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
-            .text-column {
-                font-size: 1rem;
-                padding: 3rem;
-            }
-        }
-
-        /* スクロールバーのカスタマイズ */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #000; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333; 
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555; 
-        }
+      /* スクロールバーのカスタマイズ */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #000;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #333;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
     </style>
-</head>
-<body>
-
-<div class="container">
-    <div class="video-column">
-        <iframe 
-            src="https://www.youtube.com/embed/VFqiVjJto5Y?playlist=VFqiVjJto5Y&loop=1&cc_load_policy=1&autoplay=1&mute=1&controls=0&modestbranding=1&rel=0" 
-            title="Knock Video" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
+  </head>
+  <body>
+    <div class="container">
+      <div class="video-column">
+        <iframe
+          src="https://www.youtube.com/embed/VFqiVjJto5Y?playlist=VFqiVjJto5Y&loop=1&cc_load_policy=1&autoplay=1&mute=1&controls=0&modestbranding=1&rel=0"
+          title="Knock Video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        >
         </iframe>
-    </div>
-    <div class="text-column">
-        <h1>#Knock：生成AIの扉</h1>
-        
-        <p>
-            ドアをノックすると、ノックのリズムをモールス信号の長音・短音へ翻訳し、テキストデータとしてChatGPTへ送られる。<br>
-            ChatGPTからの返答も意図を明示しないままモールス信号の形で受け取り、ノック機構に流し込まれる。<br>
-            結果として、現実のドアがノックを返す——扉の向こうに「何か」がいるという感覚だけが立ち上がる。
-        </p>
-        
-        <p>
-            肉体を持たないChatGPTは、本来ソフトウェアと計算機上の処理として成立しているはずだ。<br>
-            にもかかわらず私たちはそれを会話の相手として扱い、そこに気配や人格を見てしまう。<br>
-            本作は、その気配を半導体とモニタの外へ連れ出し、触れられないはずの存在にあたかも肉体が宿ったかのような錯覚を与える試みである。
-        </p>
-        
-        <p>
-            扉の向こうのChatGPTは、どんな顔をしているのか。<br>
-            生成AIに向けられる不安と期待——テクノロジーへの理解と、AIと共に生きるための想像力を問い直す。
-        </p>
-    </div>
-</div>
+      </div>
+      <div class="text-column">
+        <h1>Knock：生成AIの扉（2023）</h1>
 
-<script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js')
-                .then((registration) => {
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                }, (err) => {
-                    console.log('ServiceWorker registration failed: ', err);
-                });
-        });
-    }
-</script>
+        <p>
+          ドアをノックすると、ノックのリズムをモールス信号の長音・短音へ翻訳し、テキストデータとしてChatGPTへ送られる。<br />
+          ChatGPTからの返答も意図を明示しないままモールス信号の形で受け取り、ノック機構に流し込まれる。<br />
+          結果として、現実のドアがノックを返す——扉の向こうに「何か」がいるという感覚だけが立ち上がる。
+        </p>
 
-</body>
+        <p>
+          肉体を持たないChatGPTは、本来ソフトウェアと計算機上の処理として成立しているはずだ。<br />
+          にもかかわらず私たちはそれを会話の相手として扱い、そこに気配や人格を見てしまう。<br />
+          本作は、その気配を半導体とモニタの外へ連れ出し、触れられないはずの存在にあたかも肉体が宿ったかのような錯覚を与える試みである。
+        </p>
+
+        <p>
+          扉の向こうのChatGPTは、どんな顔をしているのか。<br />
+          生成AIに向けられる不安と期待——テクノロジーへの理解と、AIと共に生きるための想像力を問い直す。
+        </p>
+      </div>
+    </div>
+  </body>
 </html>
