@@ -54,7 +54,7 @@
       }
 
       .video-column {
-        flex: 0 0 70%;
+        flex: 0 0 65%;
         background: #000;
         position: relative;
         overflow: hidden;
@@ -70,10 +70,9 @@
       }
 
       .text-column {
-        flex: 0 0 30%;
-        padding: 1rem;
+        flex: 0 0 35%;
+        padding: 1.5rem;
         overflow-y: auto;
-        border-left: 1px solid var(--accent-color);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -85,7 +84,7 @@
       h1 {
         font-family: "MOBO-Regular", "MOBO", sans-serif;
         font-size: 1.2rem;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         font-weight: 400;
         border-bottom: 1px solid var(--accent-color);
         padding-bottom: 0.5rem;
@@ -95,15 +94,16 @@
       p {
         margin-bottom: 1.1rem;
         text-align: justify;
+        font-family: "MOBO-Regular", "MOBO", sans-serif;
       }
 
       /* iPad横向き時の調整 */
-      @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+      /* @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
         .text-column {
           font-size: 1rem;
           padding: 3rem;
         }
-      }
+      } */
 
       /* スクロールバーのカスタマイズ */
       ::-webkit-scrollbar {
