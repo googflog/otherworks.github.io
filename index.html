@@ -74,8 +74,8 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 4rem;
-        height: 4rem;
+        width: 6rem;
+        height: 6rem;
         background: rgba(255, 255, 255, 0.9);
         border: none;
         border-radius: 50%;
@@ -96,9 +96,9 @@
         pointer-events: none;
       }
       .video-column .play-btn svg {
-        width: 1.5rem;
-        height: 1.5rem;
-        margin-left: 0.2rem;
+        width: 3rem;
+        height: 3rem;
+        margin-left: 0.1rem;
       }
 
       .text-column {
@@ -157,7 +157,7 @@
       <div class="video-column" id="videoArea">
         <video id="knockVideo" src="movie_knock.mp4" loop playsinline title="Knock Video"></video>
         <button type="button" class="play-btn" id="playBtn" aria-label="再生">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
         </button>
       </div>
       <div class="text-column">
@@ -193,11 +193,19 @@
         }
 
         playBtn.addEventListener("click", playVideo);
-        playBtn.addEventListener("touchend", function (e) {
-          e.preventDefault();
-          playVideo();
-        }, { passive: false });
+        playBtn.addEventListener(
+          "touchend",
+          function (e) {
+            e.preventDefault();
+            playVideo();
+          },
+          { passive: false }
+        );
       })();
+
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(function () {});
+      }
     </script>
   </body>
 </html>
