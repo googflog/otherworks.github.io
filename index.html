@@ -69,23 +69,36 @@
         object-fit: cover;
       }
 
-      .video-column .tap-hint {
+      .video-column .play-btn {
         position: absolute;
-        bottom: 1rem;
+        top: 50%;
         left: 50%;
-        transform: translateX(-50%);
-        padding: 1rem;
-        background: rgba(0, 0, 0, 0.6);
-        font-size: 1rem;
-        color: rgba(255, 255, 255, 0.9);
-        pointer-events: none;
-        transition: opacity 0.3s;
-        user-select: none;
+        transform: translate(-50%, -50%);
+        width: 4rem;
+        height: 4rem;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 50%;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.3s, transform 0.2s;
       }
-      .video-column .tap-hint.hidden {
+      .video-column .play-btn:hover {
+        transform: translate(-50%, -50%) scale(1.05);
+      }
+      .video-column .play-btn:active {
+        transform: translate(-50%, -50%) scale(0.98);
+      }
+      .video-column .play-btn.hidden {
         opacity: 0;
         pointer-events: none;
+      }
+      .video-column .play-btn svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-left: 0.2rem;
       }
 
       .text-column {
@@ -142,8 +155,10 @@
   <body>
     <div class="container">
       <div class="video-column" id="videoArea">
-        <video id="knockVideo" src="movie_knock.mp4" autoplay loop playsinline muted title="Knock Video"></video>
-        <span class="tap-hint" id="tapHint">タップして音声をオン</span>
+        <video id="knockVideo" src="movie_knock.mp4" loop playsinline title="Knock Video"></video>
+        <button type="button" class="play-btn" id="playBtn" aria-label="再生">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
       </div>
       <div class="text-column">
         <h1>Knock：生成AIの扉（2023）</h1>
@@ -169,27 +184,19 @@
     <script>
       (function () {
         var video = document.getElementById("knockVideo");
-        var videoArea = document.getElementById("videoArea");
-        var tapHint = document.getElementById("tapHint");
-        var unlocked = false;
+        var playBtn = document.getElementById("playBtn");
 
-        function unmuteAndPlay() {
-          if (unlocked) return;
-          unlocked = true;
+        function playVideo() {
           video.muted = false;
-          tapHint.classList.add("hidden");
           video.play();
+          playBtn.classList.add("hidden");
         }
 
-        videoArea.addEventListener("click", unmuteAndPlay, { once: true });
-        videoArea.addEventListener(
-          "touchend",
-          function (e) {
-            e.preventDefault();
-            unmuteAndPlay();
-          },
-          { once: true, passive: false }
-        );
+        playBtn.addEventListener("click", playVideo);
+        playBtn.addEventListener("touchend", function (e) {
+          e.preventDefault();
+          playVideo();
+        }, { passive: false });
       })();
     </script>
   </body>
