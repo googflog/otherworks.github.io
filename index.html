@@ -60,13 +60,32 @@
         overflow: hidden;
       }
 
-      .video-column iframe {
+      .video-column video {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        border: none;
+        object-fit: cover;
+      }
+
+      .video-column .tap-hint {
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.6);
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.9);
+        pointer-events: none;
+        transition: opacity 0.3s;
+        user-select: none;
+        cursor: pointer;
+      }
+      .video-column .tap-hint.hidden {
+        opacity: 0;
+        pointer-events: none;
       }
 
       .text-column {
@@ -122,14 +141,9 @@
   </head>
   <body>
     <div class="container">
-      <div class="video-column">
-        <iframe
-          src="https://www.youtube.com/embed/VFqiVjJto5Y?playlist=VFqiVjJto5Y&loop=1&cc_load_policy=1&autoplay=1&mute=0&controls=0&modestbranding=1&rel=0"
-          title="Knock Video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        >
-        </iframe>
+      <div class="video-column" id="videoArea">
+        <video id="knockVideo" src="movie_knock.mp4" autoplay loop playsinline muted title="Knock Video"></video>
+        <span class="tap-hint" id="tapHint">タップして音声をオン</span>
       </div>
       <div class="text-column">
         <h1>Knock：生成AIの扉（2023）</h1>
@@ -152,5 +166,31 @@
         </p>
       </div>
     </div>
+    <script>
+      (function () {
+        var video = document.getElementById("knockVideo");
+        var videoArea = document.getElementById("videoArea");
+        var tapHint = document.getElementById("tapHint");
+        var unlocked = false;
+
+        function unmuteAndPlay() {
+          if (unlocked) return;
+          unlocked = true;
+          video.muted = false;
+          tapHint.classList.add("hidden");
+          video.play();
+        }
+
+        videoArea.addEventListener("click", unmuteAndPlay, { once: true });
+        videoArea.addEventListener(
+          "touchend",
+          function (e) {
+            e.preventDefault();
+            unmuteAndPlay();
+          },
+          { once: true, passive: false }
+        );
+      })();
+    </script>
   </body>
 </html>
